@@ -1,7 +1,6 @@
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static java.util.Map.Entry.comparingByValue;
 import static java.util.stream.Collectors.toMap;
 
 public class WordFrequencyGame {
@@ -11,7 +10,7 @@ public class WordFrequencyGame {
             return input + " 1";
         }
         try {
-            Map<String, Long> sortedWordCountMap = generateSortWordCountMap(generateWordCountMap(input));
+            Map<String, Long> sortedWordCountMap = generateSortWordCountMap(input);
             StringJoiner resultJoiner = new StringJoiner("\n");
             sortedWordCountMap.forEach((key, value) -> resultJoiner.add(key + " " + value));
             return resultJoiner.toString();
@@ -20,19 +19,14 @@ public class WordFrequencyGame {
         }
     }
 
-    private Map<String, Long> generateSortWordCountMap(Map<String, Long> wordCountMap) {
-        return wordCountMap
+    private Map<String, Long> generateSortWordCountMap(String input) {
+        return Arrays.stream(input.split(SPACE_SPLIT))
+                .collect(Collectors.groupingBy(word -> word, Collectors.counting()))
                 .entrySet()
                 .stream()
                 .sorted((Map.Entry.<String, Long>comparingByValue().reversed()))
                 .collect(
-                        toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e2,
-                                LinkedHashMap::new));
-    }
-
-    private Map<String, Long> generateWordCountMap(String input) {
-        return Arrays.stream(input.split(SPACE_SPLIT))
-                .collect(Collectors.groupingBy(word -> word, Collectors.counting()));
+                        toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e2, LinkedHashMap::new));
     }
 
 }
