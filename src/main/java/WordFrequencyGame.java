@@ -7,37 +7,32 @@ import java.util.StringJoiner;
 public class WordFrequencyGame {
     private static final String SPACE_SPLIT = "\\s+";
     public String calculateWordFrequency(String inputStr){
-
-
         if (inputStr.split(SPACE_SPLIT).length==1) {
             return inputStr + " 1";
         } else {
-
             try {
-
                 //split the input string with 1 to n pieces of spaces
                 String[] arr = inputStr.split(SPACE_SPLIT);
-
-                List<Input> inputList = new ArrayList<>();
+                List<Input> words = new ArrayList<>();
                 for (String s : arr) {
                     Input input = new Input(s, 1);
-                    inputList.add(input);
+                    words.add(input);
                 }
 
                 //get the map for the next step of sizing the same word
-                Map<String, List<Input>> map =getListMap(inputList);
+                Map<String, List<Input>> map =getListMap(words);
 
                 List<Input> list = new ArrayList<>();
                 for (Map.Entry<String, List<Input>> entry : map.entrySet()){
                     Input input = new Input(entry.getKey(), entry.getValue().size());
                     list.add(input);
                 }
-                inputList = list;
+                words = list;
 
-                inputList.sort((w1, w2) -> w2.getWordCount() - w1.getWordCount());
+                words.sort((w1, w2) -> w2.getWordCount() - w1.getWordCount());
 
                 StringJoiner joiner = new StringJoiner("\n");
-                for (Input w : inputList) {
+                for (Input w : words) {
                     String s = w.getValue() + " " +w.getWordCount();
                     joiner.add(s);
                 }
