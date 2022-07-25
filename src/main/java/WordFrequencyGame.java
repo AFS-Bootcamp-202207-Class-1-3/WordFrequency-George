@@ -1,8 +1,5 @@
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.StringJoiner;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class WordFrequencyGame {
     private static final String SPACE_SPLIT = "\\s+";
@@ -12,12 +9,7 @@ public class WordFrequencyGame {
         } else {
             try {
                 //split the input string with 1 to n pieces of spaces
-                List<Word> words = new ArrayList<>();
-                for (String word : input.split(SPACE_SPLIT)) {
-                    words.add(new Word(word, 1));
-                }
-
-
+                List<Word> words = generateWords(input);
                 //get the map for the next step of sizing the same word
                 Map<String, List<Word>> map =getListMap(words);
 
@@ -42,6 +34,12 @@ public class WordFrequencyGame {
                 return "Calculate Error";
             }
         }
+    }
+
+    private List<Word> generateWords(String input) {
+        return Arrays.stream(input.split(SPACE_SPLIT))
+                .map(word -> new Word(word, 1))
+                .collect(Collectors.toList());
     }
 
 
