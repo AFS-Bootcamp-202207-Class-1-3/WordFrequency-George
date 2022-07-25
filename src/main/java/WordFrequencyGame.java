@@ -26,7 +26,7 @@ public class WordFrequencyGame {
                 .stream()
                 .sorted((Map.Entry.<String, Long>comparingByValue().reversed()))
                 .collect(
-                        toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e2, LinkedHashMap::new));
+                        toMap(Map.Entry::getKey, Map.Entry::getValue, (word1, word2) -> word2, LinkedHashMap::new));
     }
 
 }
