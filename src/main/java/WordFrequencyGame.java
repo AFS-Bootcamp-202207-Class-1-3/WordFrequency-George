@@ -5,8 +5,9 @@ import static java.util.stream.Collectors.toMap;
 
 public class WordFrequencyGame {
     private static final String SPACE_SPLIT = "\\s+";
-    public String calculateWordFrequency(String input){
-        if (input.split(SPACE_SPLIT).length==1) {
+
+    public String calculateWordFrequency(String input) {
+        if (input.split(SPACE_SPLIT).length == 1) {
             return input + " 1";
         }
         try {
@@ -25,8 +26,7 @@ public class WordFrequencyGame {
                 .entrySet()
                 .stream()
                 .sorted((Map.Entry.<String, Long>comparingByValue().reversed()))
-                .collect(
-                        toMap(Map.Entry::getKey, Map.Entry::getValue, (word1, word2) -> word2, LinkedHashMap::new));
+                .collect(toMap(Map.Entry::getKey, Map.Entry::getValue, (word1, word2) -> word2, LinkedHashMap::new));
     }
 
 }
