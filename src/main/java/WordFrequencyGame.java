@@ -5,19 +5,15 @@ import static java.util.stream.Collectors.toMap;
 
 public class WordFrequencyGame {
     private static final String SPACE_SPLIT = "\\s+";
-    private static final int SINGLE_LENGTH = 1;
 
     public String calculateWordFrequency(String input) {
-        if (input.split(SPACE_SPLIT).length == SINGLE_LENGTH) {
-            return input + " 1";
-        }
         try {
             Map<String, Long> sortedWordCountMap = generateSortWordCountMap(input);
             StringJoiner resultJoiner = new StringJoiner("\n");
             sortedWordCountMap.forEach((key, value) -> resultJoiner.add(key + " " + value));
             return resultJoiner.toString();
-        } catch (Exception e) {
-            return "Calculate Error";
+        } catch (CalculateErrorException e) {
+            throw new CalculateErrorException();
         }
     }
 
