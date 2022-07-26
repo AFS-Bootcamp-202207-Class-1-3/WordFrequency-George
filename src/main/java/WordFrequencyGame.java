@@ -5,9 +5,10 @@ import static java.util.stream.Collectors.toMap;
 
 public class WordFrequencyGame {
     private static final String SPACE_SPLIT = "\\s+";
+    private static final int SINGLE_LENGTH = 1;
 
     public String calculateWordFrequency(String input) {
-        if (input.split(SPACE_SPLIT).length == 1) {
+        if (input.split(SPACE_SPLIT).length == SINGLE_LENGTH) {
             return input + " 1";
         }
         try {
